@@ -85,14 +85,16 @@
                 </div>
 
                 <div class="links">
-                    <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://vapor.laravel.com">Vapor</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+                    <p>Họ và Tên : Đoàn Tiến Đạt</p>
+                    <p>Ngày Sinh:23/11/1998 </p>
+                </div>               
+                <div>
+                    <a href="{{ route('todo.task.complete',['id'=>3] ) }}">Hoàn Thành</a>
+                    <a href="{{ route('todo.task.reset',['id'=>3]) }}">làm lại</a>
+                </div>
+                <div>
+                    <a href="{{ route('group.task.complete',['id'=>3]) }}">group complete</a>
+                     <a href="{{ route('group.task.reset',['id'=>3]) }}">group reset</a>
                 </div>
             </div>
         </div>
