@@ -37,3 +37,66 @@ Route::prefix('ad')->group(function(){
 		echo 'Đây là group có tính năng làm lại với id :'.$id;
 	})->name('group.task.reset');
 });
+
+
+
+Route::get('/profile',function(){
+	return view('hw2.profile',[
+		'name' =>'Đoàn Tiến Đạt',
+		'year' => 1998,
+		'schools' => 'Đại học kinh doanh và công nghệ Hà Nội',
+		'address' => 'Nam Giang , Nam Trực , Nam Định',
+		'introduce_yourself'=> '<b>đây là giới thiệu bản thân</b>',
+		'target' => 'trở thành lập trình viên về web'
+	]);
+});
+
+Route::get('/list',function(){
+	return view('hw2.list',[
+		'list' => [
+			[
+				'name' => 'học view trong laravel',
+				'status' => 0
+			],
+
+			[
+				'name' =>'hoc route trong laravel',
+				'status' => 1
+			],
+
+			[
+				'name' => 'làm bài tập view trong laravel',
+				'status' => -1
+
+			],
+
+			[
+				'name' =>'làm bài tập route trong laravel',
+				'status' => 2
+			],
+
+			[
+				'name' =>'làm bài tập view trong laravel',
+				'status' => 1
+			],
+
+			[
+				'name' =>'làm bài tập route trong laravel 2',
+				'status' => -1
+			],
+
+			[
+				'name' =>'test',
+				'status' => 1
+			],
+
+
+		],
+	]);
+
+});
+
+
+Route::get('/home',function(){
+		return view('hw2.home');		
+});
