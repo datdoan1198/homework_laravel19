@@ -100,3 +100,27 @@ Route::get('/list',function(){
 Route::get('/home',function(){
 		return view('hw2.home');		
 });
+
+
+
+
+Route::group([
+	'namespace' => 'Fontend',
+	'prefix' =>'/Task',
+	'as'=>'Task.'
+
+],function(){
+	// Route::get('/index','TaskController@index');
+	// Route::get('/create','TaskController@create')->name('create');
+	// Route::post('/store','TaskController@store')->name('store');
+	// Route::get('/show/{id?}','TaskController@show');
+	// Route::get('/edit/{id?}','TaskController@edit');
+	// Route::post('/update/{id?}','TaskController@update');
+	// Route::delete('/destroy/{Task}','TaskController@destroy')->name('destroy');
+
+	Route::get('/complete/{id}','TaskController@complete')->name('complete');
+	Route::get('/recomplete/{id}','TaskController@reComplete')->name('reComplete');
+
+});
+Route::resource('/Task','Fontend\TaskController');
+
