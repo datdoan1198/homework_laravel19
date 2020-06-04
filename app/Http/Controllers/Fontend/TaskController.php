@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Fontend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Task;
+
 
 class TaskController extends Controller
 {
@@ -14,7 +16,11 @@ class TaskController extends Controller
      */
     public function index()
     {
-        return view('hw3.index');
+        $Task = Task::all();
+       
+        return view('hw3.index',[
+            'data'=>$Task
+        ]);
     }
 
     /**
@@ -35,7 +41,17 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->except('_token'));
+        $data = $request->except('_token');
+        
+        $Task = new Task();
+
+        $Task->name = $data['name'];
+        $Task->content = $data['content'];
+        $Task->deadline = $data['deline'];
+        $Task->status = $data['status'];
+        $Task->save();
+
+        return redirect('/Task');
     }
 
     /**
@@ -80,7 +96,9 @@ class TaskController extends Controller
      */
     public function destroy($id)
     {
-        dd($id);
+        $Task = new Task();
+        $Task->destroy($id);
+        return redirect('/Task');
     }
 
     public function complete($id)
