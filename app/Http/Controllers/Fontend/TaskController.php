@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Fontend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Task;
+use Carbon\Carbon;
 
 
 class TaskController extends Controller
@@ -42,14 +43,14 @@ class TaskController extends Controller
     public function store(Request $request)
     {
         $data = $request->except('_token');
-        
-        $Task = new Task();
+        $task = new task();
 
-        $Task->name = $data['name'];
-        $Task->content = $data['content'];
-        $Task->deadline = $data['deline'];
-        $Task->status = $data['status'];
-        $Task->save();
+        $task->name = $data['name'];
+        $task->content = $data['content'];
+        $task->deadline = $data['deline'];
+        $task->status = $data['status'];
+        $task->priority = $data['priority'];
+        $task->save();  
 
         return redirect('/Task');
     }
@@ -60,7 +61,7 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id="")
+    public function show($id)
     {
         echo 'day la show '.$id;
     }
@@ -71,9 +72,14 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id=null)
+    public function edit($id)
     {
-        echo 'day la edit voi id = '.$id;
+        $data = Task::find($id);
+        $dt = str_replace(' ', 'T', $data['deadline']);
+       return view('hw3.edit',[
+            'data'=>$data,
+            'dt' =>$dt,
+       ]);
     }
 
     /**
@@ -83,9 +89,18 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request=null, $id=null)
+    public function update(Request $request, $id)
     {
-       echo 'day la update '.$id;
+       $data_new = $request->all();
+       $data = Task::find($id);
+
+       $data->name = $data_new['name'];
+       $data->content = $data_new['content'];
+       $data->deadline = str_replace('T', ' ', $data_new['deline']);
+       $data->priority = $data_new['priority']; 
+       $data->save();
+       return redirect()->route('Task.index');
+       
     }
 
     /**
@@ -103,11 +118,17 @@ class TaskController extends Controller
 
     public function complete($id)
     {
-        echo 'hoan thanh';
+        $finish = Task::find($id);
+        $finish->status = '2';
+        $finish->save();
+        return redirect()->route('Task.index');
     }
 
     public function reComplete($id)
     {
-        echo 'lam lai';
+        $finish = Task::find($id);
+        $finish->status = '1';
+        $finish->save();
+        return redirect()->route('Task.index');
     }
 }

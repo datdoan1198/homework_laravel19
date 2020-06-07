@@ -5,33 +5,34 @@
 <div class="col-sm-offset-2 col-sm-8">
         <div class="panel panel-default">
             <div class="panel-heading">
-                Thêm công việc mới
+                Update công việc mới
             </div>
             <div class="panel-body">
                 <!-- New Task Form -->
-                <form action="{{ route('Task.store')  }}" method="POST" class="form-horizontal">
+                <form action="{{ route('Task.update',['Task'=>$data->id])  }}" method="POST" class="form-horizontal">
                 {{ csrf_field() }}
+                {{ method_field('PUT') }}
 
                 <!-- Task Name -->
                     <div class="form-group">
                         <label for="task-name" class="col-sm-3 control-label">Tên công việc</label>
 
                         <div class="col-sm-6">
-                            <input type="text" name="name" id="task-name" class="form-control">
+                            <input type="text" name="name" id="task-name" class="form-control" value="{{ $data->name }}" >
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="task-name" class="col-sm-3 control-label">Mô tả</label>
 
                         <div class="col-sm-6">
-                            <textarea name="content" class="form-control"></textarea>
+                            <textarea name="content" class="form-control"  >{{ $data->content }}</textarea>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="task-name" class="col-sm-3 control-label">Thời hạn hoàn thành</label>
 
                         <div class="col-sm-6">
-                            <input type="datetime-local" name="deline" id="task-deadline" class="form-control">
+                            <input type="datetime-local" name="deline" id="task-deadline" class="form-control" value="{{  $dt  }}" >
                         </div>
                     </div>
 
@@ -40,19 +41,25 @@
 
                         <div class="col-sm-6">
                             <select name="priority" class="form-control">
-							  <option value="0">Normal</option>
-							  <option value="1">Important</option>
-							  <option value="2">Emergency</option>
+                                
+    							<option value="0" @if ($data->priority == 0)
+                                    {{ "selected" }}
+                                @endif >Normal</option>
+    							<option value="1"  @if ($data->priority == 1)
+                                    {{ "selected" }}
+                                @endif >Important</option>
+    							<option value="2"  @if ($data->priority == 2)
+                                    {{ "selected" }}
+                                @endif>Emergency</option>
 							</select>
                         </div>
                     </div>
-                    <input type="hidden" name="status" value="1">
 
                     <!-- Add Task Button -->
                     <div class="form-group">
                         <div class="col-sm-offset-3 col-sm-6">
                             <button type="submit" class="btn btn-default">
-                                <i class="fa fa-btn fa-plus"></i>Thêm công việc
+                                <i class="fa fa-btn fa-plus"></i>Update công việc
                             </button>
                         </div>
                     </div>
